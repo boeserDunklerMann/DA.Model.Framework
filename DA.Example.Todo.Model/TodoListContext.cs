@@ -10,6 +10,7 @@ namespace DA.Example.Todo.Model
 	{
 		public DbSet<TodoListItem> TodoListItems { get; set; }
 		public DbSet<TodoList> TodoLists { get; set; }
+		public TodoListContext(string connectionString):base(connectionString) { }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

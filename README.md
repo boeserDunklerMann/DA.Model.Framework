@@ -5,3 +5,5 @@ use this project for your Model project, add Model classes derived from BaseMode
 # DA.Example.Todo.Model
 Example model project which illustrates the using of DA.Model.Framework. Simple model project for a ToDoList-Application
 
+# DA.Example.Todo.Cons
+Example console project for using the DA.Example.Todo.Model  project
