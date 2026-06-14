@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="DA.Example.Todo.Model/DA.Example.Todo.Model.csproj" Id="36bdc7fc-7a49-458a-8329-1e907be2c7a9" />
   <Project Path="DA.Model.Framework/DA.Model.Framework.csproj" Id="437aaa0f-35b1-4f8f-8130-72b5420759cb" />
 </Solution>

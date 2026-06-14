@@ -14,7 +14,7 @@ namespace DA.Model.Framework
 	/// <summary>
 	/// in derivewd classes you need to add DbSet propeerties and override methods OnModelCreating (to add your entities)
 	/// </summary>
-	internal abstract class DataContext : DbContext
+	public abstract class DataContext : DbContext
 	{
 		protected IConfiguration? configuration;
 		protected string? connectionString = "";
