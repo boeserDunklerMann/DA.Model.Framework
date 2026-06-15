@@ -1,5 +1,6 @@
 ﻿using DA.Model.Framework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DA.Example.Todo.Model
 {
@@ -11,6 +12,7 @@ namespace DA.Example.Todo.Model
 		public DbSet<TodoListItem> TodoListItems { get; set; }
 		public DbSet<TodoList> TodoLists { get; set; }
 		public TodoListContext(string connectionString):base(connectionString) { }
+		public TodoListContext(IConfiguration configuration) : base(configuration) { }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

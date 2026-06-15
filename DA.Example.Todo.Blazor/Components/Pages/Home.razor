@@ -1,5 +1,25 @@
 ﻿@page "/"
+@using DA.Example.Todo.Model
+@using System.Globalization
+@inherits Home_Code
 
 <PageTitle>ToDo-Lists</PageTitle>
 
 <h1>ToDo-Lists</h1>
+@{
+	if (!Loading)
+{
+	<QuickGrid TGridItem="TodoList" Items="TodoLists?.AsQueryable()">
+		<TemplateColumn Title="Name">
+		<a href="ListDetails/@context.ID">@context.Name</a>
+		</TemplateColumn>
+
+		<PropertyColumn Title="Erstellt am" Property="@(l => l.CreationDate)"
+			Format="@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern"/>
+	</QuickGrid>
+}
+else
+{
+	<span>Lade Daten...</span>
+}
+}
