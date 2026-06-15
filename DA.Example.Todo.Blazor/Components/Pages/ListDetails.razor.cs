@@ -76,5 +76,26 @@ namespace DA.Example.Todo.Blazor.Components.Pages
 				StateHasChanged();
 			}
 		}
+
+		public async Task DeleteItemAsync(TodoListItem? item)
+		{
+			if (!Loading && item != null)
+			{
+				try
+				{
+					Loading = true;
+					using var context = await DbContextFactory.CreateDbContextAsync();
+					context.TodoListItems.Remove(item);
+					Items.Remove(item);
+					await context.SaveChangesAsync();
+				}
+				finally
+				{
+					Loading = false;
+					StateHasChanged();
+				}
+			}
+
+		}
 	}
 }

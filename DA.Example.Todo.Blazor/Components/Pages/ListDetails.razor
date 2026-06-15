@@ -17,6 +17,9 @@
 							Format="@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern" />
 			<PropertyColumn Title="Erstellt am" Property="@(i => i.CreationDate)"
 							Format="@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern" />
+			<TemplateColumn Title="Aktionen" Context="item">
+				<img src="/img/delete.png" width="15" height="15" @onclick="(e)=>DeleteItemAsync(item)"/>
+			</TemplateColumn>
 		</QuickGrid>
 	}
 	else

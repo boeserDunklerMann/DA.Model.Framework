@@ -15,4 +15,8 @@
     <ProjectReference Include="..\DA.Example.Todo.Model\DA.Example.Todo.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>
