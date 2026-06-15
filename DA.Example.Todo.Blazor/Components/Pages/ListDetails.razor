@@ -2,7 +2,7 @@
 @using DA.Example.Todo.Model
 @using System.Globalization
 @rendermode InteractiveServer
-
+@inherits ListDetails_Code
 <h3>ListDetails</h3>
 @{
 	if (!Loading)
@@ -13,7 +13,8 @@
 				<input type="checkbox" checked="@item.Checked" @onchange="@(e=>OnCheckedChangedAsync(item, (bool)e.Value!))"/>
 			</TemplateColumn>
 			<PropertyColumn Title="Name" Property="@(i => i.Name)" />
-			<PropertyColumn Title="Erledigt am" Property="@(i => i.CheckedDate)" />
+			<PropertyColumn Title="Erledigt am" Property="@(i => i.CheckedDate)"
+							Format="@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern" />
 			<PropertyColumn Title="Erstellt am" Property="@(i => i.CreationDate)"
 							Format="@CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern" />
 		</QuickGrid>
