@@ -27,7 +27,7 @@
 	@if (!Loading && editContext != null)
 		{
 	
-	<EditForm OnSubmit="OnNewItemSubmittedAsync" EditContext="@editContext">
+	<EditForm OnSubmit="OnNewItemSubmittedAsync" EditContext="@editContext" FormName="CreateTodoItemForm">
 		<div class="form-group">
 			<label>Name:</label>
 			<InputText @bind-Value="@NewItem.Name" />

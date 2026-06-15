@@ -1,4 +1,6 @@
 using DA.Example.Todo.Blazor.Components;
+using DA.Example.Todo.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DA.Example.Todo.Blazor
 {
@@ -15,6 +17,8 @@ namespace DA.Example.Todo.Blazor
 			builder.Services.AddRazorComponents()
 				.AddInteractiveServerComponents();
 			builder.Configuration.AddJsonFile("appsettings.local.json", false);    // there are some secrets which will not be committed to git
+			builder.Services.AddDbContextFactory<TodoListContext>(options =>
+			options.UseMySQL(connectionString: builder.Configuration.GetConnectionString("default")!));
 
 			var app = builder.Build();
 

@@ -15,18 +15,20 @@ namespace DA.Example.Todo.Blazor.Components.Pages
 		public int ListID { get; set; }
 		private TodoList? currentList;
 		public List<TodoListItem> Items { get; set; } = [];
-		public TodoListItem NewItem { get; set; } = BaseModel.Create<TodoListItem>("");
+		public TodoListItem NewItem { get; set; } = default!;
 
 		protected override async Task OnInitializedAsync()
 		{
 			await base.OnInitializedAsync();
-			if (!Loading && context != null)
+			if (!Loading)
 			{
 				try
 				{
 					Loading = true;
+					using var context = await DbContextFactory.CreateDbContextAsync();
 					currentList = await context.TodoLists.Where(l => l.ID == ListID).FirstAsync();
 					Items = await context.TodoListItems.Where(i => i.List!.ID == ListID).ToListAsync();
+					NewItem = BaseModel.Create<TodoListItem>("");
 					editContext = new EditContext(NewItem);
 				}
 				finally
@@ -41,13 +43,12 @@ namespace DA.Example.Todo.Blazor.Components.Pages
 		}
 		public async Task OnCheckedChangedAsync(TodoListItem item, bool newValue)
 		{
-			if (context == null)
-				throw new NullReferenceException(nameof(context));
 			if (newValue)
 				item.CheckedDate = DateTime.UtcNow;
 			else
 				item.CheckedDate = null;
 
+			using var context = await DbContextFactory.CreateDbContextAsync();
 			await context.SaveChangesAsync();
 			StateHasChanged();
 		}
@@ -55,21 +56,24 @@ namespace DA.Example.Todo.Blazor.Components.Pages
 		{
 			if (Loading)
 				return;
-			if (context == null)
-				throw new NullReferenceException(nameof(context));
 
 			try
 			{
 				Loading = true;
+				using var context = await DbContextFactory.CreateDbContextAsync();
 				NewItem.List = currentList;
+				context.TodoLists.Attach(currentList!);	// we have a new context, which doesn't know anything about currentList and assumes that this must be created again,
+														// so primary key constraint exception will raise while saving
 				await context.TodoListItems.AddAsync(NewItem);
 				await context.SaveChangesAsync();
-				StateHasChanged();
 				Items.Add(NewItem);
+				NewItem = BaseModel.Create<TodoListItem>("");
+				editContext = new EditContext(NewItem);
 			}
 			finally
 			{
 				Loading = false;
+				StateHasChanged();
 			}
 		}
 	}

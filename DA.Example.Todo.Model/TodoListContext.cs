@@ -1,6 +1,7 @@
 ﻿using DA.Model.Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DA.Example.Todo.Model
 {
@@ -11,8 +12,24 @@ namespace DA.Example.Todo.Model
 	{
 		public DbSet<TodoListItem> TodoListItems { get; set; }
 		public DbSet<TodoList> TodoLists { get; set; }
-		public TodoListContext(string connectionString):base(connectionString) { }
-		public TodoListContext(IConfiguration configuration) : base(configuration) { }
+
+		// WICHTIG: Dieser Konstruktor MUSS existieren, damit die Factory 
+		// die MySQL-Konfiguration aus der Program.cs hier hineinjagen kann!
+		[ActivatorUtilitiesConstructor]
+		public TodoListContext(DbContextOptions<TodoListContext> options, IConfiguration cfg) : base(options)
+		{
+			configuration = cfg;
+		}
+		public TodoListContext(string connectionString):base(BuildContextOptions(connectionString))
+		{
+		}
+
+		private static DbContextOptions<TodoListContext> BuildContextOptions(string connectionString)
+		{
+			var optionsBuilder = new DbContextOptionsBuilder<TodoListContext>();
+			optionsBuilder.UseMySQL(connectionString);
+			return optionsBuilder.Options;
+		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

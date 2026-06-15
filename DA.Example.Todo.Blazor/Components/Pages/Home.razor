@@ -2,7 +2,7 @@
 @using DA.Example.Todo.Model
 @using System.Globalization
 @inherits Home_Code
-
+@rendermode InteractiveServer
 <PageTitle>ToDo-Lists</PageTitle>
 
 <h1>ToDo-Lists</h1>
@@ -22,4 +22,20 @@ else
 {
 	<span>Lade Daten...</span>
 }
+	<h3>new List</h3>
+	@if (!Loading && editContext != null)
+	{
+
+		<EditForm OnValidSubmit="OnNewListSubmittedAsync" EditContext="@editContext">
+			<div class="form-group">
+				<label>Name:</label>
+				<InputText @bind-Value="@NewItem.Name" />
+				<button type="submit" class="btn btn-primary">create</button>
+			</div>
+		</EditForm>
+	}
+	else
+	{
+		<span>Lade Daten...</span>
+	}
 }

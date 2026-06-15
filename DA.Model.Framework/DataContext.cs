@@ -12,13 +12,13 @@ namespace DA.Model.Framework
 	/// <Create Datum="14.06.2026" Entwickler="DA" />
 	/// </ChangeLog>
 	/// <summary>
-	/// in derivewd classes you need to add DbSet propeerties and override methods OnModelCreating (to add your entities)
+	/// in derived classes you need to add DbSet propeerties and override methods OnModelCreating (to add your entities)
 	/// </summary>
 	public abstract class DataContext : DbContext
 	{
 		protected IConfiguration? configuration;
 		protected string? connectionString = "";
-		public DataContext(IConfiguration? config = null) : base()
+		public DataContext(DbContextOptions opts, IConfiguration? config = null) : base(opts)
 		{
 			if (config != null)
 			{
@@ -26,10 +26,12 @@ namespace DA.Model.Framework
 				connectionString = config["ConnectionStrings:default"];
 			}
 		}
-		public DataContext(string connString) : base()
+		public DataContext(DbContextOptions opts, string connString) : base(opts)
 		{
 			connectionString = connString;
 		}
+		protected DataContext(DbContextOptions options) : base(options) { }
+
 		public void SetConfiguration(IConfiguration cfg)
 		{
 			if (cfg != null)
