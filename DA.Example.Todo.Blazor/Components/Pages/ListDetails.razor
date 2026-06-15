@@ -23,4 +23,20 @@
 	{
 		<span>Lade Daten...</span>
 	}
+	<h3>new Item</h3>
+	@if (!Loading && editContext != null)
+		{
+	
+	<EditForm OnSubmit="OnNewItemSubmittedAsync" EditContext="@editContext">
+		<div class="form-group">
+			<label>Name:</label>
+			<InputText @bind-Value="@NewItem.Name" />
+			<button type="submit" class="btn btn-primary">create</button>
+		</div>
+	</EditForm>
+		}
+	else
+	{
+		<span>Lade Daten...</span>
+	}
 }

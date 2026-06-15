@@ -1,5 +1,6 @@
 ﻿using DA.Example.Todo.Model;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace DA.Example.Todo.Blazor.Components
 {
@@ -14,6 +15,7 @@ namespace DA.Example.Todo.Blazor.Components
 		[Inject]
 		protected IConfiguration? Configuration { get; set; } = default;
 		protected TodoListContext? context;
+		protected EditContext? editContext;
 		protected bool Loading { get; set; } = false;
 
 		#region IDisposable stuff
