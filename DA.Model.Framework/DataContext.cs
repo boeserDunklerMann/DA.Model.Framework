@@ -35,7 +35,7 @@ namespace DA.Model.Framework
 			if (cfg != null)
 			{
 				configuration = cfg;
-				connectionString = configuration["ConnectionStrings:da_sdp_db"]!;
+				connectionString = configuration["ConnectionStrings:default"]!;
 				Database.SetConnectionString(connectionString);
 			}
 		}

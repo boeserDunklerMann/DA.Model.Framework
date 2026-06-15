@@ -7,3 +7,6 @@ Example model project which illustrates the using of DA.Model.Framework. Simple 
 
 # DA.Example.Todo.Cons
 Example console project for using the DA.Example.Todo.Model  project
+
+# DA.Example.Todo.Blazor
+Blazor example app
